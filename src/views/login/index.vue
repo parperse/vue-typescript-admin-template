@@ -56,15 +56,8 @@
         style="width:100%; margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >
-        Sign in
+        登 录
       </el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span> username: admin </span>
-          <span> password: any </span>
-        </div>
-      </div>
     </el-form>
   </div>
 </template>
@@ -97,7 +90,7 @@ export default class extends Vue {
   }
   private loginForm = {
     username: 'admin',
-    password: '111111'
+    password: 'admin123'
   }
   private loginRules = {
     username: [{ validator: this.validateUsername, trigger: 'blur' }],
@@ -145,9 +138,12 @@ export default class extends Vue {
         this.loading = true
         await UserModule.Login(this.loginForm)
         this.$router.push({
-          path: this.redirect || '/',
-          query: this.otherQuery
+          path: '/'
         })
+        // this.$router.push({
+        //   path: this.redirect || '/',
+        //   query: this.otherQuery
+        // })
         // Just to simulate the time of the request
         setTimeout(() => {
           this.loading = false
@@ -224,18 +220,6 @@ export default class extends Vue {
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
-  }
-
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
-    }
   }
 
   .svg-container {

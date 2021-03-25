@@ -70,7 +70,7 @@
           />
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="Resources">
+      <el-form-item label="Resources lorem">
         <el-radio-group v-model="form.resource">
           <el-radio label="Sponsor" />
           <el-radio label="Venue" />
@@ -113,7 +113,7 @@ export default class extends Vue {
     type: [],
     resource: '',
     desc: ''
-  };
+  }
 
   private onSubmit() {
     this.$message('submit!')

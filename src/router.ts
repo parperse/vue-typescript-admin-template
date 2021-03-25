@@ -44,7 +44,7 @@ export default new Router({
           path: 'dashboard',
           component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
           meta: {
-            title: 'Dashboard',
+            title: '首页',
             icon: 'dashboard'
           }
         }
@@ -140,19 +140,6 @@ export default new Router({
           path: 'menu2',
           component: () => import(/* webpackChunkName: "menu2" */ '@/views/nested/menu2/index.vue'),
           meta: { title: 'Menu2' }
-        }
-      ]
-    },
-    {
-      path: 'external-link',
-      component: Layout,
-      children: [
-        {
-          path: 'https://github.com/Armour/vue-typescript-admin-template',
-          meta: {
-            title: 'External Link',
-            icon: 'link'
-          }
         }
       ]
     },

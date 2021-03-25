@@ -3,27 +3,27 @@ import { Message, MessageBox } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
 
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 5000
+  baseURL: process.env.VUE_APP_TARGET,
+  timeout: 10000
 })
 
 // Request interceptors
 service.interceptors.request.use(
-  (config) => {
+  config => {
     // Add X-Access-Token header to every request, you can add other custom headers here
     if (UserModule.token) {
-      config.headers['X-Access-Token'] = UserModule.token
+      config.headers['Authorization'] = `Bearer ${UserModule.token}`
     }
     return config
   },
-  (error) => {
+  error => {
     Promise.reject(error)
   }
 )
 
 // Response interceptors
 service.interceptors.response.use(
-  (response) => {
+  response => {
     // Some example codes here:
     // code == 20000: success
     // code == 50001: invalid access token
@@ -33,7 +33,7 @@ service.interceptors.response.use(
     // code == 50005: username or password is incorrect
     // You can change this part for your own usage.
     const res = response.data
-    if (res.code !== 20000) {
+    if (res.code !== 200) {
       Message({
         message: res.message || 'Error',
         type: 'error',
@@ -58,7 +58,7 @@ service.interceptors.response.use(
       return response.data
     }
   },
-  (error) => {
+  error => {
     Message({
       message: error.message,
       type: 'error',

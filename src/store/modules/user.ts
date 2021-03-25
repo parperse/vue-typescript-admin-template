@@ -1,5 +1,7 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
-import { login, logout, getUserInfo } from '@/api/users'
+// import { login, logout, getUserInfo } from '@/api/users'
+import { login, logout } from '@/api/auth'
+import { getUserInfo } from '@/api/system'
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import store from '@/store'
 
@@ -49,8 +51,8 @@ class User extends VuexModule implements IUserState {
     let { username, password } = userInfo
     username = username.trim()
     const { data } = await login({ username, password })
-    setToken(data.accessToken)
-    this.SET_TOKEN(data.accessToken)
+    setToken(data.access_token)
+    this.SET_TOKEN(data.access_token)
   }
 
   @Action
@@ -66,18 +68,12 @@ class User extends VuexModule implements IUserState {
       throw Error('GetUserInfo: token is undefined!')
     }
     const { data } = await getUserInfo({ /* Your params here */ })
-    if (!data) {
-      throw Error('Verification failed, please Login again.')
-    }
-    const { roles, name, avatar, introduction } = data.user
+    // const { roles, name, avatar, introduction } = data.user
     // roles must be a non-empty array
-    if (!roles || roles.length <= 0) {
-      throw Error('GetUserInfo: roles must be a non-null array!')
-    }
-    this.SET_ROLES(roles)
-    this.SET_NAME(name)
-    this.SET_AVATAR(avatar)
-    this.SET_INTRODUCTION(introduction)
+    this.SET_ROLES(['admin'])
+    this.SET_NAME('汤彪')
+    this.SET_AVATAR('123')
+    this.SET_INTRODUCTION('123')
   }
 
   @Action
